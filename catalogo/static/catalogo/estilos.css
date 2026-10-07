@@ -71,6 +71,9 @@ html[data-theme="dark"] .site-header { background: rgba(17, 20, 25, .88); }
 .catalog-link { display: inline-flex; min-height: 42px; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 12px; font-size: .85rem; font-weight: 800; transition: background .16s ease; }
 .catalog-link:hover { background: rgba(102, 111, 124, .08); }
 .catalog-link svg { width: 18px; }
+.admin-nav-link { display: inline-flex; min-height: 42px; align-items: center; gap: 8px; padding: 9px 14px; border: 1px solid rgba(240, 165, 26, .32); border-radius: 12px; color: #171a1f; background: linear-gradient(145deg, #ffc94f, #ee9f0c); box-shadow: 0 8px 20px rgba(229, 148, 0, .18); font-size: .85rem; font-weight: 900; transition: transform .16s ease, box-shadow .16s ease; }
+.admin-nav-link:hover { transform: translateY(-1px); box-shadow: 0 11px 25px rgba(229, 148, 0, .28); }
+.admin-nav-link svg { width: 18px; }
 .stock-chip { display: inline-flex; min-height: 38px; align-items: center; gap: 8px; padding: 8px 12px; border: 1px solid rgba(20, 131, 93, .16); border-radius: 999px; color: var(--success); background: rgba(214, 250, 236, .68); font-size: .78rem; font-weight: 800; }
 html[data-theme="dark"] .stock-chip { background: rgba(20, 83, 64, .35); }
 .stock-chip i, .hero-note i, .stock-badge i { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 13%, transparent); }
@@ -463,6 +466,8 @@ html[data-theme="dark"] .cart-line-number { color: #ffd788; background: rgba(144
 }
 
 @media (max-width: 680px) {
+  .admin-nav-link { width: 42px; padding: 9px; justify-content: center; overflow: hidden; color: transparent; white-space: nowrap; }
+  .admin-nav-link svg { flex: 0 0 18px; color: #171a1f; }
   .pos-nav-link { width: 42px; padding: 9px; justify-content: center; overflow: hidden; color: transparent; white-space: nowrap; }
   .pos-nav-link svg { flex: 0 0 18px; color: var(--ink); }
   .pos-nav-link.active svg { color: var(--accent-dark); }

@@ -1,6 +1,7 @@
 import json
 
 from django.contrib import admin
+from django.contrib.auth import authenticate
 from django.core.management import call_command
 from django.db import connection
 from django.test import TestCase
@@ -38,6 +39,8 @@ class CrisFerreteriasTests(TestCase):
         self.assertEqual(listado.status_code, 200)
         self.assertTemplateUsed(listado, "catalogo/lista.html")
         self.assertContains(listado, producto.nombre)
+        self.assertContains(listado, 'href="/admin/"')
+        self.assertContains(listado, "Administración")
         self.assertEqual(detalle.status_code, 200)
         self.assertContains(detalle, producto.sku)
         self.assertEqual(api.status_code, 200)
@@ -81,6 +84,12 @@ class CrisFerreteriasTests(TestCase):
     def test_admin_registra_entidades_operacionales(self):
         self.assertIn(Producto, admin.site._registry)
         self.assertIn(Venta, admin.site._registry)
+
+    def test_poblamiento_crea_superusuario(self):
+        usuario = authenticate(username="admin", password="jarax")
+        self.assertIsNotNone(usuario)
+        self.assertTrue(usuario.is_staff)
+        self.assertTrue(usuario.is_superuser)
 
 
 class PoblamientoIdempotenteTests(TestCase):

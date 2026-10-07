@@ -1,8 +1,10 @@
 import json
+import os
 from datetime import date, time, timedelta
 from decimal import Decimal
 
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from django.utils import timezone
@@ -494,8 +496,23 @@ class Command(BaseCommand):
             },
         )
 
+        usuario_admin = os.getenv("ADMIN_USERNAME", "admin")
+        clave_admin = os.getenv("ADMIN_PASSWORD", "jarax")
+        correo_admin = os.getenv("ADMIN_EMAIL", "admin@localhost")
+        modelo_usuario = get_user_model()
+        administrador, creado = modelo_usuario.objects.get_or_create(
+            username=usuario_admin,
+            defaults={"email": correo_admin},
+        )
+        administrador.is_staff = True
+        administrador.is_superuser = True
+        administrador.is_active = True
+        if creado:
+            administrador.set_password(clave_admin)
+        administrador.save()
+
         self.stdout.write(
             self.style.SUCCESS(
-                "CrisFerreterias cargada: 40 productos y datos de todas las áreas."
+                "CrisFerreterias cargada: 40 productos, datos de todas las áreas y acceso administrativo."
             )
         )

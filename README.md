@@ -31,6 +31,13 @@ Sitio: <http://127.0.0.1:8000/>
 
 Administración: <http://127.0.0.1:8000/admin/>
 
+La barra superior incluye el botón **Administración**. En una base nueva, el comando de poblamiento crea este acceso local:
+
+- Usuario: `admin`
+- Contraseña: `jarax`
+
+Estas credenciales son solo para desarrollo. Modifica `ADMIN_USERNAME`, `ADMIN_PASSWORD` y `ADMIN_EMAIL` en `.env` antes de publicar la aplicación.
+
 ## Módulos
 
 - `/` — catálogo de 40 productos obtenidos desde MariaDB.
