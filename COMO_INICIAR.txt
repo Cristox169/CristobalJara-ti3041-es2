@@ -18,3 +18,5 @@ Usuario inicial: admin
 Contrasena inicial: jarax
 
 Catálogo, ventas, inventario, personas, producción y finanzas funcionan con el mismo esquema ORM tanto en la entrega portátil como en MariaDB.
+
+Al ejecutar python manage.py runserver se mostrara al final el enlace http://127.0.0.1:8000/ y el navegador se abrira automaticamente.

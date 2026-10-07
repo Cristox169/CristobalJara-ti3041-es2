@@ -3,6 +3,7 @@ import json
 from django.contrib import admin
 from django.contrib.auth import authenticate
 from django.core.management import call_command
+from django.core.management import get_commands
 from django.db import connection
 from django.test import TestCase
 from django.urls import reverse
@@ -95,6 +96,9 @@ class CrisFerreteriasTests(TestCase):
         self.assertIsNotNone(usuario)
         self.assertTrue(usuario.is_staff)
         self.assertTrue(usuario.is_superuser)
+
+    def test_runserver_personalizado_es_activo(self):
+        self.assertEqual(get_commands()["runserver"], "catalogo")
 
 
 class PoblamientoIdempotenteTests(TestCase):

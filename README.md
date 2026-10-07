@@ -19,6 +19,8 @@ python -m venv .venv
 .\.venv\Scripts\python.exe manage.py runserver
 ```
 
+Al ejecutar `python manage.py runserver`, Django muestra el enlace <http://127.0.0.1:8000/> al final del inicio y abre la página automáticamente. Usa `python manage.py runserver --no-browser` si no deseas abrir el navegador.
+
 ## Base de datos MariaDB
 
 - Motor: MariaDB 11.4.3.
