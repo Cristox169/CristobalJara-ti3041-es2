@@ -22,14 +22,14 @@ Desde la carpeta del proyecto:
 .\scripts\iniciar_mariadb.ps1
 .\.venv\Scripts\python.exe manage.py migrate
 .\.venv\Scripts\python.exe manage.py poblar_crisferreterias
-.\.venv\Scripts\python.exe manage.py runserver 127.0.0.1:8002
+.\.venv\Scripts\python.exe manage.py runserver
 ```
 
 O ejecutar `iniciar_crissteel.bat`, que verifica dependencias, inicia MariaDB, aplica migraciones y carga los datos sin duplicarlos.
 
-Sitio: <http://127.0.0.1:8002/>
+Sitio: <http://127.0.0.1:8000/>
 
-Administración: <http://127.0.0.1:8002/admin/>
+Administración: <http://127.0.0.1:8000/admin/>
 
 ## Módulos
 
@@ -55,4 +55,4 @@ Administración: <http://127.0.0.1:8002/admin/>
 
 El comando `poblar_crisferreterias` es idempotente. Carga 40 productos, precios, inventario por bodega, proveedores, compras, ventas, clientes, personal, nómina, producción, despachos y transacciones financieras.
 
-El archivo `uso_ia.md` se conserva sin modificaciones. No se realizó ninguna subida a GitHub.
+El archivo `uso_ia.md` registra las consultas y ajustes realizados con IA. La Parte 2 debe completarla personalmente el estudiante, tal como exige la pauta.

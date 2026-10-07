@@ -27,10 +27,10 @@ if errorlevel 1 goto error
 echo Poblando CrisFerreterias...
 ".venv\Scripts\python.exe" manage.py poblar_crisferreterias
 if errorlevel 1 goto error
-echo Iniciando sitio en http://127.0.0.1:8002/
-start "Servidor CrisSteel" cmd /k ""%~dp0.venv\Scripts\python.exe" "%~dp0manage.py" runserver 127.0.0.1:8002"
+echo Iniciando sitio en http://127.0.0.1:8000/
+start "Servidor CrisSteel" cmd /k ""%~dp0.venv\Scripts\python.exe" "%~dp0manage.py" runserver 127.0.0.1:8000"
 timeout /t 3 /nobreak >nul
-start "" "http://127.0.0.1:8002/"
+start "" "http://127.0.0.1:8000/"
 exit /b 0
 :error
 echo No fue posible iniciar CrisSteel. Revisa el mensaje anterior.

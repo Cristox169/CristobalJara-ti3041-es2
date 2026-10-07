@@ -32,10 +32,11 @@ class CrisFerreteriasTests(TestCase):
 
     def test_catalogo_detalle_y_api_consultan_bd(self):
         producto = Producto.objects.get(sku="HEL-001")
-        listado = self.client.get(reverse("catalogo:lista"))
+        listado = self.client.get("/")
         detalle = self.client.get(reverse("catalogo:detalle", args=[producto.pk]))
         api = self.client.get(reverse("catalogo:api_productos"))
         self.assertEqual(listado.status_code, 200)
+        self.assertTemplateUsed(listado, "catalogo/lista.html")
         self.assertContains(listado, producto.nombre)
         self.assertEqual(detalle.status_code, 200)
         self.assertContains(detalle, producto.sku)

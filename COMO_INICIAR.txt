@@ -3,6 +3,6 @@ CRISSTEEL · CRISFERRETERIAS
 1. Abre esta carpeta en Visual Studio Code.
 2. Ejecuta iniciar_crissteel.bat.
 3. El iniciador levanta MariaDB 11.4 en el puerto 3307, aplica migraciones y carga los datos.
-4. Abre http://127.0.0.1:8002/
+4. Abre http://127.0.0.1:8000/
 
 La aplicación ya no utiliza SQLite. Catálogo, ventas, inventario, personas, producción y finanzas funcionan sobre la base MariaDB CrisFerreterias.
