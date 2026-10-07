@@ -19,7 +19,7 @@ python -m venv .venv
 .\.venv\Scripts\python.exe manage.py runserver
 ```
 
-Al ejecutar `python manage.py runserver`, Django muestra el enlace <http://127.0.0.1:8000/> al final del inicio y abre la página automáticamente. Usa `python manage.py runserver --no-browser` si no deseas abrir el navegador.
+Al ejecutar `python manage.py runserver`, el propio `manage.py` muestra inmediatamente el enlace <http://127.0.0.1:8000/> y Django vuelve a mostrarlo cuando el puerto queda activo. En Windows, la página también se abre automáticamente. El archivo `ABRIR_CRISSTEEL.url` permite volver a abrirla con doble clic mientras el servidor siga ejecutándose. Usa `python manage.py runserver --no-browser` si no deseas abrir el navegador.
 
 ## Base de datos MariaDB
 

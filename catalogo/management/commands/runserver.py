@@ -1,3 +1,5 @@
+import os
+import sys
 import threading
 import webbrowser
 
@@ -24,6 +26,16 @@ class Command(StaticRunserverCommand):
         self.open_browser = not options.pop("no_browser", False)
         super().handle(*args, **options)
 
+    @staticmethod
+    def open_url(url):
+        try:
+            if sys.platform == "win32":
+                os.startfile(url)
+            else:
+                webbrowser.open_new_tab(url)
+        except OSError:
+            webbrowser.open_new_tab(url)
+
     def on_bind(self, server_port):
         super().on_bind(server_port)
         host = self.addr
@@ -37,7 +49,7 @@ class Command(StaticRunserverCommand):
         self.stdout.write(self.style.SUCCESS(url))
         if self.open_browser:
             self.stdout.write("El navegador se abrirá automáticamente.")
-            opener = threading.Timer(0.8, webbrowser.open_new_tab, args=(url,))
+            opener = threading.Timer(0.8, self.open_url, args=(url,))
             opener.daemon = True
             opener.start()
         self.stdout.write(
