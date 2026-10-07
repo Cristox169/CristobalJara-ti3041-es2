@@ -22,6 +22,13 @@ Se solicitó adaptar las vistas para que el catálogo, el detalle y el punto de 
 
 **Uso y ajustes:** se confirmó que el catálogo se sirve desde `/`, se fijó el puerto predeterminado en 8000, se agregó un mensaje visible con la URL al iniciar Django y se actualizaron los archivos de ejecución y documentación.
 
+### Consulta 5 - Diseño visual de referencia y ZIP portátil
+**Prompt:** "Modifica el ZIP para que la página se vea como las imágenes de referencia y después actualiza el repositorio de GitHub con lo realizado."
+
+**Resumen de la respuesta:** se reutilizó la interfaz modular de CrisSteel mostrada en las capturas: encabezado, navegación, héroes oscuros, fondo cuadriculado, tarjetas de indicadores, tablas, catálogo visual, punto de venta y pie de página. Para que la misma interfaz pudiera abrirse sin instalar un servidor de base de datos, se añadió un modo SQLite local sin quitar la configuración MariaDB de la evaluación.
+
+**Uso y ajustes:** se incorporó detección del motor activo, etiquetas coherentes en pantalla, una vista de configuración compatible con ambos motores y el iniciador `iniciar_portatil.bat`. También se preparó una base local con los datos integrales y el superusuario solicitado, y se verificaron las rutas principales en escritorio y móvil.
+
 ### Ajustes realizados
 Se mantuvieron las imágenes y plantillas de la ES1. Se agregó el modelo, la migración, el registro en Admin, la fixture `productos.json` y las consultas ORM. También se ajustó el stock que superaba el máximo solicitado por la pauta.
 

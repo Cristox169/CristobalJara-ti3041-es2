@@ -1,8 +1,25 @@
 # CrisSteel · CrisFerreterias
 
-Sistema Django integral para una ferretería, construido sobre el proyecto ES2 original y conectado exclusivamente a MariaDB. Cubre catálogo, punto de venta persistente, compras, inventario, logística, recursos humanos, nómina, producción y análisis financiero.
+Sistema Django integral para una ferretería, construido sobre el proyecto ES2 original. Cubre catálogo, punto de venta persistente, compras, inventario, logística, recursos humanos, nómina, producción y análisis financiero. La entrega conserva MariaDB como motor principal de la evaluación y añade un modo SQLite portátil para ejecutarla sin configuración previa.
 
-## Base de datos
+## Ejecución portátil
+
+En Windows, ejecuta `iniciar_portatil.bat`. El iniciador crea el entorno virtual, instala las dependencias, prepara la base local, carga los datos y abre automáticamente:
+
+- Sitio: <http://127.0.0.1:8000/>
+- Administración: <http://127.0.0.1:8000/admin/>
+
+También se puede iniciar manualmente:
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe manage.py migrate
+.\.venv\Scripts\python.exe manage.py poblar_crisferreterias
+.\.venv\Scripts\python.exe manage.py runserver
+```
+
+## Base de datos MariaDB
 
 - Motor: MariaDB 11.4.3.
 - Base: `CrisFerreterias`.
@@ -14,7 +31,7 @@ Sistema Django integral para una ferretería, construido sobre el proyecto ES2 o
 
 `Producto` no almacena precio ni stock. El precio vigente se obtiene desde `PrecioProducto` y el inventario se deriva de `MovimientoInventario`. Las relaciones multivaluadas están descompuestas mediante tablas puente y los documentos usan cabecera/detalle.
 
-## Inicio rápido
+## Inicio con MariaDB
 
 Desde la carpeta del proyecto:
 
@@ -27,10 +44,6 @@ Desde la carpeta del proyecto:
 
 O ejecutar `iniciar_crissteel.bat`, que verifica dependencias, inicia MariaDB, aplica migraciones y carga los datos sin duplicarlos.
 
-Sitio: <http://127.0.0.1:8000/>
-
-Administración: <http://127.0.0.1:8000/admin/>
-
 La barra superior incluye el botón **Administración**. En una base nueva, el comando de poblamiento crea este acceso local:
 
 - Usuario: `admin`
@@ -40,7 +53,7 @@ Estas credenciales son solo para desarrollo. Modifica `ADMIN_USERNAME`, `ADMIN_P
 
 ## Módulos
 
-- `/` — catálogo de 40 productos obtenidos desde MariaDB.
+- `/` — catálogo de 40 productos obtenidos desde la base activa.
 - `/panel/` — indicadores generales.
 - `/punto-de-venta/` — venta real en base de datos y descuento transaccional de stock.
 - `/ventas/` — ingresos, costos y margen.

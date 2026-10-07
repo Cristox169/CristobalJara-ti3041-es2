@@ -566,7 +566,12 @@ html[data-theme="dark"] .cart-line-number { color: #ffd788; background: rgba(144
   .module-access-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 520px) {
+  .topbar { gap: 8px; }
+  .nav-actions { gap: 6px; }
+  .pos-nav-link { display: none; }
   .business-metrics, .business-metrics.three, .module-grid.two, .module-access-grid { grid-template-columns: 1fr; }
   .module-hero { padding: 62px 0 58px; }
+  .module-hero h1 { overflow-wrap: anywhere; font-size: clamp(2.25rem, 11vw, 3rem); line-height: 1.02; }
+  .module-hero p { font-size: .94rem; }
   .module-title { align-items: flex-start; flex-direction: column; }
 }

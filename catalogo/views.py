@@ -1,5 +1,6 @@
 import json
 from decimal import Decimal
+from pathlib import Path
 
 from django.apps import apps
 from django.db import connection, transaction
@@ -137,7 +138,11 @@ def preparar_contexto_catalogo():
             .count(),
         },
         "categorias": preparar_categorias(),
-        "origen_datos": "MariaDB · CrisFerreterias · Django ORM",
+        "origen_datos": (
+            "MariaDB · CrisFerreterias · Django ORM"
+            if connection.vendor == "mysql"
+            else "SQLite local · CrisFerreterias · Django ORM"
+        ),
     }
 
 
@@ -283,15 +288,25 @@ def finanzas(request):
 
 def configuracion(request):
     with connection.cursor() as cursor:
-        cursor.execute("SELECT VERSION(), DATABASE()")
-        version, base = cursor.fetchone()
+        if connection.vendor == "mysql":
+            cursor.execute("SELECT VERSION(), DATABASE()")
+            version, base = cursor.fetchone()
+            motor = "MariaDB"
+            caracteristicas = "utf8mb4 · transacciones"
+        else:
+            cursor.execute("SELECT sqlite_version()")
+            version = f"SQLite {cursor.fetchone()[0]}"
+            base = Path(connection.settings_dict["NAME"]).name
+            motor = "SQLite"
+            caracteristicas = "archivo local · transacciones"
     return render(
         request,
         "catalogo/configuracion.html",
         {
-            "motor": "MariaDB",
+            "motor": motor,
             "version": version,
             "base": base,
+            "caracteristicas": caracteristicas,
             "modelos": len(list(apps.get_app_config("catalogo").get_models())),
         },
     )

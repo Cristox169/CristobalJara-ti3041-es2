@@ -79,24 +79,34 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DB_NAME', 'CrisFerreterias'),
-        'USER': os.getenv('DB_USER', 'crisferreterias_app'),
-        'PASSWORD': os.getenv('DB_PASSWORD', ''),
-        'HOST': os.getenv('DB_HOST', '127.0.0.1'),
-        'PORT': os.getenv('DB_PORT', '3307'),
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
-        'CONN_MAX_AGE': 60,
-        'TEST': {
-            'NAME': os.getenv('DB_TEST_NAME', 'CrisFerreterias_test'),
-        },
+DB_ENGINE = os.getenv("DB_ENGINE", "sqlite").strip().lower()
+
+if DB_ENGINE in {"mariadb", "mysql"}:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("DB_NAME", "CrisFerreterias"),
+            "USER": os.getenv("DB_USER", "crisferreterias_app"),
+            "PASSWORD": os.getenv("DB_PASSWORD", ""),
+            "HOST": os.getenv("DB_HOST", "127.0.0.1"),
+            "PORT": os.getenv("DB_PORT", "3307"),
+            "OPTIONS": {
+                "charset": "utf8mb4",
+                "init_command": "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
+            "CONN_MAX_AGE": 60,
+            "TEST": {
+                "NAME": os.getenv("DB_TEST_NAME", "CrisFerreterias_test"),
+            },
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 
 # Password validation

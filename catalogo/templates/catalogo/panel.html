@@ -1,7 +1,7 @@
 {% extends 'catalogo/base.html' %}
 {% block title %}Panel integral | CrisSteel{% endblock %}
 {% block content %}
-<section class="module-hero"><div class="container"><span class="eyebrow eyebrow-light"><i></i> Gestión conectada</span><h1>Todo CrisSteel, en una sola vista.</h1><p>Indicadores de ventas, inventario, personas, producción y finanzas consultados directamente desde MariaDB.</p></div></section>
+<section class="module-hero"><div class="container"><span class="eyebrow eyebrow-light"><i></i> Gestión conectada</span><h1>Todo CrisSteel, en una sola vista.</h1><p>Indicadores de ventas, inventario, personas, producción y finanzas consultados directamente desde {{ DB_ENGINE_LABEL }}.</p></div></section>
 <section class="container module-content">
   <div class="business-metrics">
     <article><small>Ingresos</small><strong>${{ ingresos|floatformat:0 }}</strong><span>{{ ventas }} ventas registradas</span></article>

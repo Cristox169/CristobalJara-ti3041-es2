@@ -1,11 +1,20 @@
 CRISSTEEL · CRISFERRETERIAS
 
-1. Abre esta carpeta en Visual Studio Code.
-2. Ejecuta iniciar_crissteel.bat.
-3. El iniciador levanta MariaDB 11.4 en el puerto 3307, aplica migraciones y carga los datos.
-4. Abre http://127.0.0.1:8000/
-5. Usa el boton Administracion o abre http://127.0.0.1:8000/admin/
-6. Usuario inicial: admin
-7. Contrasena inicial: jarax
+OPCION A · ENTREGA PORTATIL
 
-La aplicación ya no utiliza SQLite. Catálogo, ventas, inventario, personas, producción y finanzas funcionan sobre la base MariaDB CrisFerreterias.
+1. Ejecuta iniciar_portatil.bat.
+2. El iniciador prepara SQLite, carga los datos y abre http://127.0.0.1:8000/
+
+OPCION B · MARIADB
+
+1. Copia .env.example como .env y configura la clave de la base.
+2. Ejecuta iniciar_crissteel.bat.
+3. El iniciador levanta MariaDB 11.4 en el puerto 3307, aplica las migraciones y carga los datos.
+
+ADMINISTRACION
+
+Usa el boton Administracion o abre http://127.0.0.1:8000/admin/
+Usuario inicial: admin
+Contrasena inicial: jarax
+
+Catálogo, ventas, inventario, personas, producción y finanzas funcionan con el mismo esquema ORM tanto en la entrega portátil como en MariaDB.

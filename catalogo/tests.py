@@ -15,13 +15,17 @@ class CrisFerreteriasTests(TestCase):
     def setUpTestData(cls):
         call_command("poblar_crisferreterias", verbosity=0)
 
-    def test_backend_es_mariadb(self):
-        self.assertEqual(connection.vendor, "mysql")
+    def test_backend_configurado(self):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT VERSION(), DATABASE()")
-            version, database = cursor.fetchone()
-        self.assertIn("MariaDB", version)
-        self.assertEqual(database.lower(), "crisferreterias_test")
+            if connection.vendor == "mysql":
+                cursor.execute("SELECT VERSION(), DATABASE()")
+                version, database = cursor.fetchone()
+                self.assertIn("MariaDB", version)
+                self.assertEqual(database.lower(), "crisferreterias_test")
+            else:
+                self.assertEqual(connection.vendor, "sqlite")
+                cursor.execute("SELECT sqlite_version()")
+                self.assertRegex(cursor.fetchone()[0], r"^\d+\.\d+")
 
     def test_hay_40_productos_normalizados(self):
         self.assertEqual(Producto.objects.filter(activo=True).count(), 40)
@@ -41,6 +45,7 @@ class CrisFerreteriasTests(TestCase):
         self.assertContains(listado, producto.nombre)
         self.assertContains(listado, 'href="/admin/"')
         self.assertContains(listado, "Administración")
+        self.assertContains(listado, "MariaDB activa" if connection.vendor == "mysql" else "SQLite local")
         self.assertEqual(detalle.status_code, 200)
         self.assertContains(detalle, producto.sku)
         self.assertEqual(api.status_code, 200)
