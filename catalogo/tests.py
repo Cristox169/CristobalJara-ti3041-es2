@@ -17,16 +17,12 @@ class CrisFerreteriasTests(TestCase):
         call_command("poblar_crisferreterias", verbosity=0)
 
     def test_backend_configurado(self):
+        self.assertEqual(connection.vendor, "mysql")
         with connection.cursor() as cursor:
-            if connection.vendor == "mysql":
-                cursor.execute("SELECT VERSION(), DATABASE()")
-                version, database = cursor.fetchone()
-                self.assertIn("MariaDB", version)
-                self.assertEqual(database.lower(), "crisferreterias_test")
-            else:
-                self.assertEqual(connection.vendor, "sqlite")
-                cursor.execute("SELECT sqlite_version()")
-                self.assertRegex(cursor.fetchone()[0], r"^\d+\.\d+")
+            cursor.execute("SELECT VERSION(), DATABASE()")
+            version, database = cursor.fetchone()
+        self.assertIn("MariaDB", version)
+        self.assertEqual(database.lower(), "crisferreterias_test")
 
     def test_hay_40_productos_normalizados(self):
         self.assertEqual(Producto.objects.filter(activo=True).count(), 40)
@@ -34,6 +30,8 @@ class CrisFerreteriasTests(TestCase):
         self.assertTrue(producto.sku)
         self.assertTrue(producto.categoria.nombre)
         self.assertGreaterEqual(producto.precio_vigente, 0)
+        self.assertTrue(producto.imagen_base64.startswith("data:image/"))
+        self.assertEqual(Producto.objects.exclude(imagen_base64="").count(), 40)
         self.assertFalse(any(campo.name in {"precio", "stock"} for campo in Producto._meta.fields))
 
     def test_catalogo_detalle_y_api_consultan_bd(self):
@@ -46,7 +44,7 @@ class CrisFerreteriasTests(TestCase):
         self.assertContains(listado, producto.nombre)
         self.assertContains(listado, 'href="/admin/"')
         self.assertContains(listado, "Administración")
-        self.assertContains(listado, "MariaDB activa" if connection.vendor == "mysql" else "SQLite local")
+        self.assertContains(listado, "MariaDB XAMPP activa")
         self.assertEqual(detalle.status_code, 200)
         self.assertContains(detalle, producto.sku)
         self.assertEqual(api.status_code, 200)

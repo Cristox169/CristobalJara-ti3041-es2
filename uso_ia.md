@@ -36,6 +36,13 @@ Se solicitó adaptar las vistas para que el catálogo, el detalle y el punto de 
 
 **Uso y ajustes:** la integración de `PyMySQL` se movió a la configuración exclusiva de MariaDB y la restricción del inventario se hizo compatible con Django 5.0 y 5.2. Luego se ejecutó `python manage.py runserver` con el Python instalado en el equipo y se verificó que la portada respondiera correctamente en `http://127.0.0.1:8000/`.
 
+### Consulta 7 - MariaDB mediante XAMPP
+**Prompt:** "La base de datos debe ser implementada en MariaDB a través de XAMPP y toda la información debe estar disponible en la base de datos para la página."
+
+**Resumen de la respuesta:** se cambió la configuración principal al MariaDB incluido en XAMPP, usando la base `CrisFerreterias` en el puerto 3306 y un usuario exclusivo para Django. Se eliminó el inicio normal mediante SQLite y se añadió una preparación reproducible de la base.
+
+**Uso y ajustes:** se incorporaron `crear_bd_xampp.sql` y `scripts/preparar_xampp.ps1`, se adaptó el iniciador de Windows y se fijó una versión de Django compatible con MariaDB 10.4 de XAMPP. Las 40 imágenes Base64 se trasladaron al campo `Producto.imagen_base64`; catálogo, precios, existencias, compras, ventas, personal, producción y finanzas se cargan y consultan mediante el ORM desde MariaDB.
+
 ### Ajustes realizados
 Se mantuvieron las imágenes y plantillas de la ES1. Se agregó el modelo, la migración, el registro en Admin, la fixture `productos.json` y las consultas ORM. También se ajustó el stock que superaba el máximo solicitado por la pauta.
 

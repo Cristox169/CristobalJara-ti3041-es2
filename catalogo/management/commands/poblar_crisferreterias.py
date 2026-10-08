@@ -10,6 +10,7 @@ from django.db import transaction
 from django.utils import timezone
 from django.utils.text import slugify
 
+from catalogo.imagenes_productos import PRODUCT_IMAGE_DATA
 from catalogo.models import (
     AsignacionTurno,
     Bodega,
@@ -150,6 +151,7 @@ class Command(BaseCommand):
                     "marca": marca,
                     "unidad": unidad,
                     "punto_reorden": 5,
+                    "imagen_base64": PRODUCT_IMAGE_DATA.get(entrada["pk"], ""),
                     "activo": True,
                 },
             )

@@ -1,4 +1,3 @@
-from django.db import connection
 from django.urls import reverse
 
 
@@ -17,13 +16,12 @@ NAVEGACION = [
 
 
 def navegacion_global(request):
-    es_mariadb = connection.vendor == "mysql"
     return {
         "NAV_ITEMS": [
             {"label": label, "url": reverse(route), "match": match}
             for label, route, match in NAVEGACION
         ],
-        "DB_STATUS": "MariaDB activa" if es_mariadb else "SQLite local",
-        "DB_ENGINE_LABEL": "MariaDB" if es_mariadb else "SQLite",
-        "DB_STACK": "Django + MariaDB · ORM · TI3041" if es_mariadb else "Django + SQLite · ORM · TI3041",
+        "DB_STATUS": "MariaDB XAMPP activa",
+        "DB_ENGINE_LABEL": "MariaDB",
+        "DB_STACK": "Django + MariaDB XAMPP · ORM · TI3041",
     }

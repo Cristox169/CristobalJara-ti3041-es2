@@ -1,6 +1,5 @@
 import json
 from decimal import Decimal
-from pathlib import Path
 
 from django.apps import apps
 from django.db import connection, transaction
@@ -11,7 +10,6 @@ from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.views.decorators.http import require_POST
 
-from .imagenes_productos import PRODUCT_IMAGE_DATA
 from .models import (
     Bodega,
     Categoria,
@@ -104,7 +102,7 @@ def preparar_producto(producto):
         "categoria_corta": nombre_corto,
         "precio_formateado": f"${precio:,.0f}".replace(",", "."),
         "disponible": stock > 0,
-        "imagen_base64": PRODUCT_IMAGE_DATA.get(producto.pk, ""),
+        "imagen_base64": producto.imagen_base64,
         "unidad": producto.unidad.simbolo,
         "marca": producto.marca.nombre if producto.marca else "Sin marca",
         "punto_reorden": producto.punto_reorden,
@@ -138,11 +136,7 @@ def preparar_contexto_catalogo():
             .count(),
         },
         "categorias": preparar_categorias(),
-        "origen_datos": (
-            "MariaDB · CrisFerreterias · Django ORM"
-            if connection.vendor == "mysql"
-            else "SQLite local · CrisFerreterias · Django ORM"
-        ),
+        "origen_datos": "MariaDB XAMPP · CrisFerreterias · Django ORM",
     }
 
 
@@ -288,25 +282,16 @@ def finanzas(request):
 
 def configuracion(request):
     with connection.cursor() as cursor:
-        if connection.vendor == "mysql":
-            cursor.execute("SELECT VERSION(), DATABASE()")
-            version, base = cursor.fetchone()
-            motor = "MariaDB"
-            caracteristicas = "utf8mb4 · transacciones"
-        else:
-            cursor.execute("SELECT sqlite_version()")
-            version = f"SQLite {cursor.fetchone()[0]}"
-            base = Path(connection.settings_dict["NAME"]).name
-            motor = "SQLite"
-            caracteristicas = "archivo local · transacciones"
+        cursor.execute("SELECT VERSION(), DATABASE()")
+        version, base = cursor.fetchone()
     return render(
         request,
         "catalogo/configuracion.html",
         {
-            "motor": motor,
+            "motor": "MariaDB XAMPP",
             "version": version,
             "base": base,
-            "caracteristicas": caracteristicas,
+            "caracteristicas": "utf8mb4 · transacciones",
             "modelos": len(list(apps.get_app_config("catalogo").get_models())),
         },
     )

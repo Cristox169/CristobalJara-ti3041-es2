@@ -55,6 +55,7 @@ class Producto(models.Model):
     unidad = models.ForeignKey(UnidadMedida, on_delete=models.PROTECT, related_name="productos")
     punto_reorden = models.PositiveIntegerField(default=5)
     imagen_url = models.URLField("URL de imagen", blank=True)
+    imagen_base64 = models.TextField("imagen Base64", blank=True)
     activo = models.BooleanField(default=True)
     creado = models.DateTimeField(auto_now_add=True)
     actualizado = models.DateTimeField(auto_now=True)
