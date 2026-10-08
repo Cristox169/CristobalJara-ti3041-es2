@@ -547,7 +547,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AddConstraint(
             model_name='movimientoinventario',
-            constraint=models.CheckConstraint(condition=models.Q(('cantidad', 0), _negated=True), name='ck_mov_cantidad_no_cero'),
+            constraint=models.CheckConstraint(check=models.Q(('cantidad', 0), _negated=True), name='ck_mov_cantidad_no_cero'),
         ),
         migrations.AddConstraint(
             model_name='detallecompra',

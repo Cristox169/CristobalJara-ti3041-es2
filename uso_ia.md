@@ -29,6 +29,13 @@ Se solicitó adaptar las vistas para que el catálogo, el detalle y el punto de 
 
 **Uso y ajustes:** se incorporó detección del motor activo, etiquetas coherentes en pantalla, una vista de configuración compatible con ambos motores y el iniciador `iniciar_portatil.bat`. También se preparó una base local con los datos integrales y el superusuario solicitado, y se verificaron las rutas principales en escritorio y móvil. El propio `manage.py` muestra el enlace antes de cargar Django; el comando `runserver` vuelve a mostrarlo cuando el puerto queda activo y lo abre automáticamente en el navegador. También se añadió el acceso directo `ABRIR_CRISSTEEL.url`.
 
+### Consulta 6 - El enlace aparece pero la página no abre
+**Prompt:** "Ahora está el link, pero no puedo acceder a la página que hiciste."
+
+**Resumen de la respuesta:** se comprobó que no había ningún servidor escuchando en el puerto 8000. La ejecución terminaba porque el modo SQLite intentaba importar innecesariamente `PyMySQL` y porque la instalación local de Django 5.0 requería la sintaxis compatible de `CheckConstraint`.
+
+**Uso y ajustes:** la integración de `PyMySQL` se movió a la configuración exclusiva de MariaDB y la restricción del inventario se hizo compatible con Django 5.0 y 5.2. Luego se ejecutó `python manage.py runserver` con el Python instalado en el equipo y se verificó que la portada respondiera correctamente en `http://127.0.0.1:8000/`.
+
 ### Ajustes realizados
 Se mantuvieron las imágenes y plantillas de la ES1. Se agregó el modelo, la migración, el registro en Admin, la fixture `productos.json` y las consultas ORM. También se ajustó el stock que superaba el máximo solicitado por la pauta.
 

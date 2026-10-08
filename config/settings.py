@@ -82,6 +82,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DB_ENGINE = os.getenv("DB_ENGINE", "sqlite").strip().lower()
 
 if DB_ENGINE in {"mariadb", "mysql"}:
+    import pymysql
+
+    pymysql.install_as_MySQLdb()
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.mysql",

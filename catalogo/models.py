@@ -156,7 +156,7 @@ class MovimientoInventario(models.Model):
     class Meta:
         ordering = ["-fecha", "-pk"]
         indexes = [models.Index(fields=["producto", "bodega", "fecha"], name="idx_mov_prod_bod_fecha")]
-        constraints = [models.CheckConstraint(condition=~models.Q(cantidad=0), name="ck_mov_cantidad_no_cero")]
+        constraints = [models.CheckConstraint(check=~models.Q(cantidad=0), name="ck_mov_cantidad_no_cero")]
         verbose_name = "movimiento de inventario"
         verbose_name_plural = "movimientos de inventario"
 
